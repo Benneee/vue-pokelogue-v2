@@ -1,7 +1,7 @@
 <template>
-  <section>
-      Pokemons
-  </section>
+    <section>
+        The Header
+    </section>
 </template>
 
 <script>
