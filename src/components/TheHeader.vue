@@ -63,13 +63,13 @@ export default {
 
 <style scoped lang="scss">
 .nav__container {
-  background: rgb(2, 0, 36);
-  background: linear-gradient(
-    90deg,
-    rgba(255, 249, 0, 1) 40%,
-    rgba(2, 0, 36, 1) 30%,
-    rgba(163, 27, 27, 1) 29%
-  );
+  // background: rgb(2, 0, 36);
+  // background: linear-gradient(
+  //   90deg,
+  //   rgba(255, 249, 0, 1) 40%,
+  //   rgba(2, 0, 36, 1) 30%,
+  //   rgba(163, 27, 27, 1) 29%
+  // );
   // @include set-container;
   // background: transparent;
   font-family: $primary-font;
@@ -81,11 +81,15 @@ export default {
       padding: 0 2rem;
     }
 
+    a.router-link-exact-active {
+      text-decoration: underline;
+    }
+
     &__menu {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      color: $white;
+      // color: $white;
 
       @include respond(tab-port) {
         position: fixed;
@@ -108,7 +112,7 @@ export default {
         }
         a {
           // font-weight: bold;
-          font-size: 1.4rem;
+          font-size: 1rem;
           margin-right: 1rem;
         }
       }
