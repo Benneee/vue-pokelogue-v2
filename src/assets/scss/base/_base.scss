@@ -6,12 +6,13 @@ html {
   height: 100%;
   overflow: hidden;
   scroll-behavior: smooth;
+  margin: 0;
+  padding: 0;
 }
 
 /* Using the power of inheritance, we set properties like font in the body */
 body {
   box-sizing: border-box;
-  // padding: 3rem;
   background: $white;
   height: 100%;
   overflow: auto;
