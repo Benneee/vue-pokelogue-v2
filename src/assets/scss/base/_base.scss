@@ -1,0 +1,34 @@
+html {
+  /* font-size: 10px; */
+  /* Therefore, 1rem = 10px */
+  // Already in CSS Reset
+  // font-size: 62.5%;
+  height: 100%;
+  overflow: hidden;
+  scroll-behavior: smooth;
+}
+
+/* Using the power of inheritance, we set properties like font in the body */
+body {
+  box-sizing: border-box;
+  // padding: 3rem;
+  background: $white;
+  height: 100%;
+  overflow: auto;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+a:hover {
+  opacity: 0.88;
+}
+button {
+  &:hover {
+    opacity: 0.88;
+  }
+}
