@@ -71,6 +71,7 @@ export default {
     rgba(163, 27, 27, 1) 29%
   );
   // @include set-container;
+  // background: transparent;
   font-family: $primary-font;
 
   .header {
