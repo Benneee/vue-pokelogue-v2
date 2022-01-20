@@ -1,0 +1,33 @@
+.form__container {
+  .form__group {
+    &-label {
+      display: block;
+
+      font-family: $tertiary-font;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 1.6rem;
+      line-height: 2.2rem;
+      letter-spacing: 0.5px;
+      margin-bottom: 1.4rem;
+      color: $primary-text-color;
+    }
+
+    &-input {
+      width: 100%;
+      background: #fdfdfd;
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+
+      outline: inherit;
+      font-size: inherit;
+      font-family: $primary-font;
+      padding: 1.8rem;
+
+      margin-bottom: 2.5rem;
+      &-error {
+        border: 1px solid $red;
+      }
+    }
+  }
+}
