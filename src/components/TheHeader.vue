@@ -63,7 +63,14 @@ export default {
 
 <style scoped lang="scss">
 .nav__container {
-  @include set-container;
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 249, 0, 1) 40%,
+    rgba(2, 0, 36, 1) 30%,
+    rgba(163, 27, 27, 1) 29%
+  );
+  // @include set-container;
   font-family: $primary-font;
 
   .header {
@@ -77,6 +84,7 @@ export default {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      color: $white;
 
       @include respond(tab-port) {
         position: fixed;
@@ -96,7 +104,6 @@ export default {
       &-item {
         @include respond(tab-port) {
           margin-top: 1rem;
-          // padding-top: 1rem;
         }
         a {
           // font-weight: bold;

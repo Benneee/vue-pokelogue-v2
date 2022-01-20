@@ -1,8 +1,6 @@
 <template>
-  <section>
-    <TheHeader />
-    <router-view></router-view>
-  </section>
+  <TheHeader />
+  <router-view></router-view>
 </template>
 
 <script>
@@ -17,4 +15,4 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped lang="scss"></style>
