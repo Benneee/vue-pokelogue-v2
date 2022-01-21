@@ -1,5 +1,14 @@
 <template>
-  <section>Pokemons</section>
+  <section>
+    <div>
+      <button v-if="hasPreviousPageUrl" @click="getPokemons(previousPageUrl)">
+        Previous
+      </button>
+      <button v-if="hasNextPageUrl" @click="getPokemons(nextPageUrl)">
+        Next
+      </button>
+    </div>
+  </section>
 </template>
 
 <script>
@@ -8,7 +17,15 @@ export default {
   name: 'Pokemons',
 
   computed: {
-    ...mapGetters(['pokemons']),
+    ...mapGetters(['pokemons', 'previousPageUrl', 'nextPageUrl']),
+
+    hasPreviousPageUrl() {
+      return this.previousPageUrl !== null;
+    },
+
+    hasNextPageUrl() {
+      return this.nextPageUrl !== null;
+    },
   },
 
   created() {
@@ -18,11 +35,11 @@ export default {
   methods: {
     ...mapActions(['fetchPokemons']),
 
-    async getPokemons() {
+    async getPokemons(payload = '') {
       this.isLoading = true;
 
       try {
-        await this.fetchPokemons();
+        await this.fetchPokemons(payload);
       } catch (error) {
         console.error('error: ', error);
       }
