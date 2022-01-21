@@ -1,6 +1,8 @@
 import { createStore } from 'vuex';
+import getPokemonId from './helpers';
 
-// const imageUrl = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/';
+const imageUrl =
+  'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/';
 let apiUrl = 'https://pokeapi.co/api/v2/pokemon/';
 
 const store = createStore({
@@ -10,21 +12,58 @@ const store = createStore({
       pokeTypes: [],
       favourites: [],
       pokemon: {},
+      hasNextPage: false,
+      hasPreviousPage: false,
+      nextPageUrl: null,
+      previousPageUrl: null,
     };
   },
 
   getters: {
-    getPokemons(state) {
+    pokemons(state) {
       return state.pokemons;
     },
-    // getPokemonTypes,
+
+    previousPageStatus(state) {
+      return state.hasPreviousPage;
+    },
+
+    nextPageStatus(state) {
+      return state.hasNextPage;
+    },
+
+    previousPageUrl(state) {
+      return state.previousPageUrl;
+    },
+
+    nextPageUrl(state) {
+      return state.nextPageUrl;
+    },
+
+    // pokemonTypes,
     // getFavorites,
-    // getPokemon // Details
+    // pokemon // Details
   },
 
   mutations: {
     setPokemons(state, payload) {
       state.pokemons = payload;
+    },
+
+    setNextPageStatus(state, payload) {
+      state.hasNextPage = payload;
+    },
+
+    setPreviousPageStatus(state, payload) {
+      state.hasPreviousPage = payload;
+    },
+
+    setNextPageUrl(state, payload) {
+      state.nextPageUrl = payload;
+    },
+
+    setPreviousPageUrl(state, payload) {
+      state.previousPageUrl = payload;
     },
     // setPokemonTypes,
     // setFavorites,
@@ -40,8 +79,28 @@ const store = createStore({
         console.error('Error occurred');
       } else {
         console.log('data: ', pokemonsData);
+        const { next, previous, results } = pokemonsData;
 
-        context.commit('setPokemons', []);
+        const pokemons = results.map((pokemon) => {
+          return {
+            name: pokemon.name,
+            img: `${imageUrl}${getPokemonId(pokemon.url)}.png`,
+            id: getPokemonId(pokemon.url),
+          };
+        });
+
+        console.log('poks: ', pokemons);
+
+        context.commit('setPokemons', pokemons);
+        context.commit('setNextPageStatus', !!next);
+        context.commit('setPreviousPageStatus', !!previous);
+
+        if (next !== null) {
+          context.commit('setNextPageUrl', next);
+        }
+        if (previous !== null) {
+          context.commit('setPreviousPageUrl', previous);
+        }
       }
     },
     // fetchPokemonTypes,
