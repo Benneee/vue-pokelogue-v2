@@ -12,8 +12,6 @@ const store = createStore({
       pokeTypes: [],
       favourites: [],
       pokemon: {},
-      hasNextPage: false,
-      hasPreviousPage: false,
       nextPageUrl: null,
       previousPageUrl: null,
     };
@@ -22,14 +20,6 @@ const store = createStore({
   getters: {
     pokemons(state) {
       return state.pokemons;
-    },
-
-    previousPageStatus(state) {
-      return state.hasPreviousPage;
-    },
-
-    nextPageStatus(state) {
-      return state.hasNextPage;
     },
 
     previousPageUrl(state) {
@@ -50,14 +40,6 @@ const store = createStore({
       state.pokemons = payload;
     },
 
-    setNextPageStatus(state, payload) {
-      state.hasNextPage = payload;
-    },
-
-    setPreviousPageStatus(state, payload) {
-      state.hasPreviousPage = payload;
-    },
-
     setNextPageUrl(state, payload) {
       state.nextPageUrl = payload;
     },
@@ -71,8 +53,12 @@ const store = createStore({
   },
 
   actions: {
-    async fetchPokemons(context) {
-      const response = await fetch(apiUrl);
+    async fetchPokemons(context, payload = '') {
+      let currentUrl = payload !== '' ? payload : apiUrl;
+
+      console.log('url: ', currentUrl);
+
+      const response = await fetch(currentUrl);
       const pokemonsData = await response.json();
 
       if (!response.ok) {
@@ -89,18 +75,9 @@ const store = createStore({
           };
         });
 
-        console.log('poks: ', pokemons);
-
         context.commit('setPokemons', pokemons);
-        context.commit('setNextPageStatus', !!next);
-        context.commit('setPreviousPageStatus', !!previous);
-
-        if (next !== null) {
-          context.commit('setNextPageUrl', next);
-        }
-        if (previous !== null) {
-          context.commit('setPreviousPageUrl', previous);
-        }
+        context.commit('setNextPageUrl', next);
+        context.commit('setPreviousPageUrl', previous);
       }
     },
     // fetchPokemonTypes,
