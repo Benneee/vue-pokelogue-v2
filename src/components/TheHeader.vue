@@ -112,7 +112,7 @@ export default {
         }
         a {
           // font-weight: bold;
-          font-size: 1rem;
+          font-size: 1.3rem;
           margin-right: 1rem;
         }
       }

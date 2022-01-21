@@ -56,15 +56,12 @@ const store = createStore({
     async fetchPokemons(context, payload = '') {
       let currentUrl = payload !== '' ? payload : apiUrl;
 
-      console.log('url: ', currentUrl);
-
       const response = await fetch(currentUrl);
       const pokemonsData = await response.json();
 
       if (!response.ok) {
         console.error('Error occurred');
       } else {
-        console.log('data: ', pokemonsData);
         const { next, previous, results } = pokemonsData;
 
         const pokemons = results.map((pokemon) => {
