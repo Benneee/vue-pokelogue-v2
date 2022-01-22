@@ -30,6 +30,13 @@ const router = createRouter({
     },
     { path: '/:notFound(.*)', component: NotFound },
   ],
+
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition;
+    }
+    return { left: 0, top };
+  },
 });
 
 export default router;

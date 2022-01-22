@@ -1,12 +1,12 @@
 <template>
   <article class="pokemon__card">
     <div class="pokemon__card-img">
-      <img src="@/assets/images/poke-img.png" alt="" />
+      <img :src="pokemon.img" alt="" />
     </div>
     <div class="pokemon__card-details">
-      <p class="id">#002</p>
+      <p class="id">#{{ pokemon.id }}</p>
 
-      <p class="name">Ivysaur</p>
+      <p class="name">{{ pokemon.name }}</p>
 
       <p class="properties">Grass, Poison</p>
     </div>
@@ -16,23 +16,39 @@
 <script>
 export default {
   name: 'Pokemon',
+
+  props: {
+    pokemon: {
+      type: Object,
+      required: false,
+    },
+  },
 };
 </script>
 
 <style lang="scss">
 .pokemon__card {
-  height: 225px;
+  height: 200px;
   width: 160px;
   background: $white;
   border-radius: 4px;
   font-family: $primary-font;
   border: 1px solid $white;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2), 0 2px 2px rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+
+  @include respond(tab-port) {
+    height: 225px;
+    width: 110px;
+  }
 
   &-img {
     background: #f3f9ef;
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
   }
 
   &-details {
@@ -50,6 +66,11 @@ export default {
     .name {
       font-size: 1.75rem;
       font-weight: bold;
+      text-transform: capitalize;
+
+      @include respond(tab-port) {
+        font-size: 1.3rem;
+      }
     }
 
     .properties {

@@ -5,8 +5,15 @@
         <BaseSpinner />
       </div>
 
-      <Pokemon v-for="(pokemon, index) in pokemons" :key="`pokemon-${index}`" />
+      <Pokemon
+        v-for="(pokemon, index) in pokemons"
+        :key="`pokemon-${index}`"
+        :pokemon="pokemon"
+      />
     </div>
+
+    <!-- Use scroll-reload to fetch more pokemons -->
+    <!-- Button isn't pushing back up after going to next page -->
     <div class="footer">
       <button
         class="pg-btn"
@@ -45,6 +52,18 @@ export default {
     };
   },
 
+  // Temp fix for the scrollToTop stuff
+  watch: {
+    nextPageUrl: function (val) {
+      if (val) {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        });
+      }
+    },
+  },
+
   computed: {
     ...mapGetters(['pokemons', 'previousPageUrl', 'nextPageUrl']),
 
@@ -72,7 +91,6 @@ export default {
       } catch (error) {
         console.error('error: ', error);
       }
-
       this.isLoading = false;
     },
   },
@@ -89,9 +107,14 @@ export default {
   margin-top: 1.5rem;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  grid-gap: 1rem;
+  grid-gap: 1.9rem;
   width: 100vw;
   // max-width: 70%;
+
+  @include respond(tab-port) {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    padding: 1rem 2rem;
+  }
 }
 
 .footer {
