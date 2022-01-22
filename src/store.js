@@ -4,6 +4,7 @@ import getPokemonId from './helpers';
 const imageUrl =
   'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/';
 let apiUrl = 'https://pokeapi.co/api/v2/pokemon/';
+let pokemonTypesUrl = 'https://pokeapi.co/api/v2/type';
 
 const store = createStore({
   state() {
@@ -30,7 +31,9 @@ const store = createStore({
       return state.nextPageUrl;
     },
 
-    // pokemonTypes,
+    pokemonTypes(state) {
+      return state.pokeTypes;
+    },
     // getFavorites,
     // pokemon // Details
   },
@@ -47,7 +50,10 @@ const store = createStore({
     setPreviousPageUrl(state, payload) {
       state.previousPageUrl = payload;
     },
-    // setPokemonTypes,
+
+    setPokemonTypes(state, payload) {
+      state.pokeTypes = payload;
+    },
     // setFavorites,
     // setPokemon,
   },
@@ -77,7 +83,22 @@ const store = createStore({
         context.commit('setPreviousPageUrl', previous);
       }
     },
-    // fetchPokemonTypes,
+    async fetchPokemonTypes(context) {
+      const response = await fetch(pokemonTypesUrl);
+      const responseData = await response.json();
+
+      if (!response.ok) {
+        console.error('Error occurred');
+      } else {
+        const { results } = responseData;
+        const pokemonTypes = results.filter(
+          (type) => !['unknown', 'shadow'].includes(type.name),
+        );
+
+        context.commit('setPokemonTypes', pokemonTypes);
+      }
+    },
+
     // fetchPokemonsByType,
     // fetchPokemonDetails,
     // fetchFavorites

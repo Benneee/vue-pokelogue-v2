@@ -73,8 +73,15 @@ export default {
   // @include set-container;
   // background: transparent;
   font-family: $primary-font;
+  padding: 1.2rem 0 0rem 0;
+
+  @include respond(tab-port) {
+    padding: 1rem 0 4rem 0;
+  }
 
   .header {
+    // position: fixed;
+
     @include set-width(4rem);
 
     @include respond(tab-port) {
@@ -92,7 +99,7 @@ export default {
       // color: $white;
 
       @include respond(tab-port) {
-        position: fixed;
+        // position: fixed;
         left: -100%;
         top: 5rem;
         padding: 4rem 0;
