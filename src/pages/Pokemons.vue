@@ -1,10 +1,9 @@
 <template>
   <section>
+    <div v-if="isLoading">
+      <BaseSpinner />
+    </div>
     <div class="pokemons">
-      <div v-if="isLoading">
-        <BaseSpinner />
-      </div>
-
       <Pokemon
         v-for="(pokemon, index) in pokemons"
         :key="`pokemon-${index}`"
@@ -124,7 +123,7 @@ export default {
 
   .pg-btn {
     font-size: 1rem;
-    padding: 0.8rem 2rem;
+    padding: 0.5rem 0.7rem;
     border-radius: 6px;
     background: $red;
     color: $white;
