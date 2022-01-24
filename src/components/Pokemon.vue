@@ -8,8 +8,6 @@
       <p class="id">#{{ pokemon.id }}</p>
 
       <p class="name">{{ shortenName(pokemon.name) }}</p>
-
-      <p class="properties">Grass, Poison</p>
     </div>
   </article>
 </template>
@@ -33,7 +31,7 @@ export default {
 
 <style lang="scss">
 .pokemon__card {
-  height: 200px;
+  height: 180px;
   width: 160px;
   background: $white;
   border-radius: 4px;
