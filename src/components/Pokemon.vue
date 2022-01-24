@@ -1,4 +1,5 @@
 <template>
+  <!-- ToDo: add a tooltip element especially for truncated names -->
   <article class="pokemon__card">
     <div class="pokemon__card-img">
       <img :src="pokemon.img" alt="" />
@@ -6,7 +7,7 @@
     <div class="pokemon__card-details">
       <p class="id">#{{ pokemon.id }}</p>
 
-      <p class="name">{{ pokemon.name }}</p>
+      <p class="name">{{ shortenName(pokemon.name) }}</p>
 
       <p class="properties">Grass, Poison</p>
     </div>
@@ -14,8 +15,12 @@
 </template>
 
 <script>
+import ShortenName from '../mixins/ShortenName';
+
 export default {
   name: 'Pokemon',
+
+  mixins: [ShortenName],
 
   props: {
     pokemon: {
@@ -48,7 +53,15 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 100%;
+    height: 104px;
+    padding: 0.3rem;
     cursor: pointer;
+
+    img {
+      height: fit-content;
+      height: -webkit-fill-available;
+    }
   }
 
   &-details {
