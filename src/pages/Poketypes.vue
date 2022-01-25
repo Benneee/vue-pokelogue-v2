@@ -20,13 +20,13 @@
       </button>
     </div>
 
-    <div v-if="isLoading && pokemons.length === 0">
+    <div v-if="isLoading && pokemonsFromType.length === 0">
       <BaseSpinner />
     </div>
 
     <div class="pokemons" v-else>
       <Pokemon
-        v-for="pokemon in pokemons"
+        v-for="pokemon in pokemonsFromType"
         :key="`type-${pokemon.id}`"
         :pokemon="pokemon"
       />
@@ -54,7 +54,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['pokemonTypes', 'pokemons']),
+    ...mapGetters(['pokemonTypes', 'pokemonsFromType']),
   },
 
   created() {

@@ -11,6 +11,7 @@ const store = createStore({
   state() {
     return {
       pokemons: [],
+      pokemonsFromType: [],
       pokeTypes: [],
       favourites: [],
       pokemon: {},
@@ -35,6 +36,11 @@ const store = createStore({
     pokemonTypes(state) {
       return state.pokeTypes;
     },
+
+    pokemonsFromType(state) {
+      return state.pokemonsFromType;
+    },
+
     // getFavorites,
     // pokemon // Details
   },
@@ -55,6 +61,11 @@ const store = createStore({
     setPokemonTypes(state, payload) {
       state.pokeTypes = payload;
     },
+
+    setPokemonsFromType(state, payload) {
+      state.pokemonsFromType = payload;
+    },
+
     // setFavorites,
     // setPokemon,
   },
@@ -121,7 +132,7 @@ const store = createStore({
                 : noImg,
           };
         });
-        context.commit('setPokemons', pokemonsByType);
+        context.commit('setPokemonsFromType', pokemonsByType);
       }
     },
 
