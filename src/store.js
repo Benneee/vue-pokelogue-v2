@@ -55,6 +55,13 @@ const store = createStore({
       state.pokemons = payload;
     },
 
+    setExtraPokemons(state, payload) {
+      const pokemons = state.pokemons;
+      const increasedPokemons = [...pokemons, ...payload];
+
+      state.pokemons = increasedPokemons;
+    },
+
     setNextPageUrl(state, payload) {
       state.nextPageUrl = payload;
     },
@@ -142,6 +149,29 @@ const store = createStore({
           };
         });
         context.commit('setPokemonsFromType', pokemonsByType);
+      }
+    },
+
+    async fetchNewPokemons(context, payload) {
+      const response = await fetch(payload);
+      const pokemonsData = await response.json();
+
+      if (!response.ok) {
+        console.error('Error occurred');
+      } else {
+        const { next, previous, results } = pokemonsData;
+
+        const pokemons = results.map((pokemon) => {
+          return {
+            name: pokemon.name,
+            img: `${imageUrl}${getPokemonId(pokemon.url)}.png`,
+            id: getPokemonId(pokemon.url),
+          };
+        });
+
+        context.commit('setExtraPokemons', pokemons);
+        context.commit('setNextPageUrl', next);
+        context.commit('setPreviousPageUrl', previous);
       }
     },
 
