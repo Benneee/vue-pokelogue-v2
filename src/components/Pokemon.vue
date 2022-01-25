@@ -42,8 +42,8 @@ export default {
   transition: 0.3s;
 
   @include respond(tab-port) {
-    height: 225px;
-    width: 110px;
+    height: 165px;
+    width: 130px;
   }
 
   &-img {
