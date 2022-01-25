@@ -17,6 +17,7 @@ const store = createStore({
       pokemon: {},
       nextPageUrl: null,
       previousPageUrl: null,
+      selectedPokemonType: null,
     };
   },
 
@@ -39,6 +40,10 @@ const store = createStore({
 
     pokemonsFromType(state) {
       return state.pokemonsFromType;
+    },
+
+    selectedPokemonType(state) {
+      return state.selectedPokemonType;
     },
 
     // getFavorites,
@@ -64,6 +69,10 @@ const store = createStore({
 
     setPokemonsFromType(state, payload) {
       state.pokemonsFromType = payload;
+    },
+
+    setSelectedPokemonType(state, payload) {
+      state.selectedPokemonType = payload;
     },
 
     // setFavorites,
@@ -134,6 +143,10 @@ const store = createStore({
         });
         context.commit('setPokemonsFromType', pokemonsByType);
       }
+    },
+
+    saveSelectedPokemonType(context, payload) {
+      context.commit('setSelectedPokemonType', payload);
     },
 
     // fetchPokemonDetails,
