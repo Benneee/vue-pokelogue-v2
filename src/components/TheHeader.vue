@@ -63,29 +63,18 @@ export default {
 
 <style scoped lang="scss">
 .nav__container {
-  // background: rgb(2, 0, 36);
-  // background: linear-gradient(
-  //   90deg,
-  //   rgba(255, 249, 0, 1) 40%,
-  //   rgba(2, 0, 36, 1) 30%,
-  //   rgba(163, 27, 27, 1) 29%
-  // );
-  // @include set-container;
-  // background: transparent;
+  @include set-container;
   font-family: $primary-font;
   padding: 1.2rem 0 0rem 0;
 
   @include respond(tab-port) {
-    padding: 1rem 0 4rem 0;
+    padding: 1rem 0 1rem 0;
   }
 
   .header {
-    // position: fixed;
-
     @include set-width(4rem);
-
     @include respond(tab-port) {
-      padding: 0 2rem;
+      padding: 0 1rem;
     }
 
     a.router-link-exact-active {
@@ -96,21 +85,22 @@ export default {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      // color: $white;
 
       @include respond(tab-port) {
-        // position: fixed;
+        position: fixed;
         left: -100%;
-        top: 5rem;
-        padding: 4rem 0;
+        top: 6rem;
+        padding: 1.5rem 0;
         z-index: 1;
         flex-direction: column;
         background-color: $red;
         color: $white;
         width: 100%;
         text-align: center;
-        transition: 0.3s;
+        transition: 0.5s all;
         box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+
+        animation: slideIn 0.2s ease-out forwards;
       }
 
       &-item {
@@ -118,7 +108,6 @@ export default {
           margin-top: 1rem;
         }
         a {
-          // font-weight: bold;
           font-size: 1.3rem;
           margin-right: 1rem;
         }
@@ -138,6 +127,23 @@ export default {
         display: block;
         cursor: pointer;
       }
+    }
+  }
+
+  @keyframes slideIn {
+    0% {
+      opacity: 0;
+      left: -200px;
+    }
+
+    50% {
+      left: -50px;
+      opacity: 0.7;
+    }
+
+    100% {
+      opacity: 1;
+      left: 0;
     }
   }
 }
