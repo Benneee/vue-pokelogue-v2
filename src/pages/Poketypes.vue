@@ -1,17 +1,11 @@
 <template>
   <section>
-    <!-- ToDo: -->
-    <!-- Hide other buttons when one is selected -->
-    <!-- Also create a reset button on the side to reset pokemons and select a new type -->
-    <!-- Reset button should nullify pokemons and bring back all the type buttons -->
-
-    <!-- or -->
-
-    <!-- Indicate which button was selected either by button color change or button background color change - use state: typeSelected or something like that -->
-
     <div class="type__btns">
       <button
         class="type__btns-btn"
+        :style="{
+          backgroundColor: isSelectedBtn(type.url) ? '#000' : '#a31b1b',
+        }"
         v-for="(type, index) in pokemonTypes"
         :key="`type-${index}`"
         @click="getPokemonsByType(type.url)"
@@ -54,7 +48,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['pokemonTypes', 'pokemonsFromType']),
+    ...mapGetters(['pokemonTypes', 'pokemonsFromType', 'selectedPokemonType']),
   },
 
   created() {
@@ -62,7 +56,11 @@ export default {
   },
 
   methods: {
-    ...mapActions(['fetchPokemonTypes', 'fetchPokemonsByType']),
+    ...mapActions([
+      'fetchPokemonTypes',
+      'fetchPokemonsByType',
+      'saveSelectedPokemonType',
+    ]),
 
     async getPokemonTypes() {
       this.isLoading = true;
@@ -77,6 +75,7 @@ export default {
     },
 
     async getPokemonsByType(typeUrl) {
+      this.saveSelectedPokemonType(typeUrl);
       this.isLoading = true;
 
       try {
@@ -84,8 +83,11 @@ export default {
       } catch (error) {
         console.error('error: ', error);
       }
-
       this.isLoading = false;
+    },
+
+    isSelectedBtn(url) {
+      return url === this.selectedPokemonType;
     },
   },
 };
