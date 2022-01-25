@@ -1,9 +1,9 @@
 <template>
   <section>
-    <div v-if="isLoading">
+    <div v-if="isLoading && pokemons.length === 0">
       <BaseSpinner />
     </div>
-    <div class="pokemons">
+    <div class="pokemons" id="pokemons-list">
       <Pokemon
         v-for="(pokemon, index) in pokemons"
         :key="`pokemon-${index}`"
@@ -11,9 +11,9 @@
       />
     </div>
 
-    <!-- Use scroll-reload to fetch more pokemons -->
+    <!-- Use infinite-scroll to fetch more pokemons -->
     <!-- Button isn't pushing back up after going to next page -->
-    <div class="footer">
+    <!-- <div class="footer" v-if="!isLoading && pokemons.length > 0">
       <button
         class="pg-btn"
         v-if="hasPreviousPageUrl"
@@ -28,7 +28,7 @@
       >
         Next
       </button>
-    </div>
+    </div> -->
   </section>
 </template>
 
@@ -51,18 +51,6 @@ export default {
     };
   },
 
-  // Temp fix for the scrollToTop stuff
-  watch: {
-    nextPageUrl: function (val) {
-      if (val) {
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth',
-        });
-      }
-    },
-  },
-
   computed: {
     ...mapGetters(['pokemons', 'previousPageUrl', 'nextPageUrl']),
 
@@ -79,8 +67,24 @@ export default {
     this.getPokemons();
   },
 
+  mounted() {
+    const pokemonsList = document.querySelector('.pokemons');
+    pokemonsList.addEventListener('scroll', (e) => {
+      console.log('scrollTop: ', pokemonsList.scrollTop);
+      console.log('clientHeight: ', pokemonsList.clientHeight);
+      console.log('scrollHeight: ', pokemonsList.scrollHeight);
+      // if (
+      //   pokemonsList.scrollTop + pokemonsList.clientHeight >=
+      //   pokemonsList.scrollHeight
+      // ) {
+      console.log('event: ', e);
+      //   this.fetchNewPokemons(this.nextPageUrl);
+      // }
+    });
+  },
+
   methods: {
-    ...mapActions(['fetchPokemons']),
+    ...mapActions(['fetchPokemons', 'fetchNewPokemons']),
 
     async getPokemons(payload = '') {
       this.isLoading = true;
