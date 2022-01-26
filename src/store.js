@@ -207,7 +207,16 @@ const store = createStore({
       context.commit('setFavorites', []);
     },
 
-    // fetchPokemonDetails,
+    async fetchPokemonDetails(context, payload) {
+      const response = await fetch(`${apiUrl}${payload}`);
+      const responseData = await response.json();
+
+      if (!response.ok) {
+        console.error('Error occurred!');
+      } else {
+        console.log('res: ', responseData);
+      }
+    },
   },
 });
 
