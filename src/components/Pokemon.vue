@@ -1,7 +1,7 @@
 <template>
   <!-- ToDo: add a tooltip element especially for truncated names -->
   <article class="pokemon__card">
-    <div class="pokemon__card-img">
+    <div class="pokemon__card-img" @click="goToPokemonDetail(pokemon.id)">
       <img :src="pokemon.img" alt="" />
     </div>
     <div class="pokemon__card-details">
@@ -24,6 +24,12 @@ export default {
     pokemon: {
       type: Object,
       required: false,
+    },
+  },
+
+  methods: {
+    goToPokemonDetail(pokemonId) {
+      this.$router.push({ name: 'pokemon-detail', params: { pokemonId } });
     },
   },
 };
