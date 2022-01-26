@@ -67,21 +67,21 @@ export default {
     this.getPokemons();
   },
 
-  mounted() {
-    const pokemonsList = document.querySelector('.pokemons');
-    pokemonsList.addEventListener('scroll', (e) => {
-      console.log('scrollTop: ', pokemonsList.scrollTop);
-      console.log('clientHeight: ', pokemonsList.clientHeight);
-      console.log('scrollHeight: ', pokemonsList.scrollHeight);
-      // if (
-      //   pokemonsList.scrollTop + pokemonsList.clientHeight >=
-      //   pokemonsList.scrollHeight
-      // ) {
-      console.log('event: ', e);
-      //   this.fetchNewPokemons(this.nextPageUrl);
-      // }
-    });
-  },
+  // mounted() {
+  //   const pokemonsList = document.querySelector('.pokemons');
+  //   pokemonsList.addEventListener('scroll', (e) => {
+  //     console.log('scrollTop: ', pokemonsList.scrollTop);
+  //     console.log('clientHeight: ', pokemonsList.clientHeight);
+  //     console.log('scrollHeight: ', pokemonsList.scrollHeight);
+  //     // if (
+  //     //   pokemonsList.scrollTop + pokemonsList.clientHeight >=
+  //     //   pokemonsList.scrollHeight
+  //     // ) {
+  //     console.log('event: ', e);
+  //     //   this.fetchNewPokemons(this.nextPageUrl);
+  //     // }
+  //   });
+  // },
 
   methods: {
     ...mapActions(['fetchPokemons', 'fetchNewPokemons']),
