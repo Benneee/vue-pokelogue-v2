@@ -13,7 +13,7 @@ const store = createStore({
       pokemons: [],
       pokemonsFromType: [],
       pokeTypes: [],
-      favourites: [],
+      favouritePokemons: [],
       pokemon: {},
       nextPageUrl: null,
       previousPageUrl: null,
@@ -46,7 +46,10 @@ const store = createStore({
       return state.selectedPokemonType;
     },
 
-    // getFavorites,
+    getFavorites(state) {
+      return state.favouritePokemons;
+    },
+
     // pokemon // Details
   },
 
@@ -82,7 +85,10 @@ const store = createStore({
       state.selectedPokemonType = payload;
     },
 
-    // setFavorites,
+    setFavorites(state, payload) {
+      state.favouritePokemons = payload;
+    },
+
     // setPokemon,
   },
 
@@ -179,8 +185,29 @@ const store = createStore({
       context.commit('setSelectedPokemonType', payload);
     },
 
+    favoritePokemon(_, payload) {
+      const favouritePokemons = JSON.parse(
+        localStorage.getItem('favouritePokemons'),
+      );
+      if (favouritePokemons) {
+        const newFavourites = [payload, ...favouritePokemons];
+        localStorage.removeItem('favouritePokemons');
+        localStorage.setItem(JSON.stringify(newFavourites));
+        console.log('favorites set!');
+      }
+    },
+
+    fetchFavorites(context) {
+      const favouritePokemons = JSON.parse(
+        localStorage.getItem('favouritePokemons'),
+      );
+      if (favouritePokemons) {
+        context.commit('setFavorites', favouritePokemons);
+      }
+      context.commit('setFavorites', []);
+    },
+
     // fetchPokemonDetails,
-    // fetchFavorites
   },
 });
 
