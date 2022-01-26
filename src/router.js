@@ -28,6 +28,12 @@ const router = createRouter({
       name: 'poketypes',
       component: () => import('./pages/Poketypes.vue'),
     },
+    {
+      path: '/pokemon/:pokemonId',
+      name: 'pokemon-detail',
+      component: () => import('./pages/PokemonDetail.vue'),
+      props: true,
+    },
     { path: '/:notFound(.*)', component: NotFound },
   ],
 
