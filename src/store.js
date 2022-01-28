@@ -1,9 +1,8 @@
 import { createStore } from 'vuex';
-import getPokemonId from './helpers';
+import { getPokemonId, apiUrl } from './helpers';
 
 const imageUrl =
   'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/';
-let apiUrl = 'https://pokeapi.co/api/v2/pokemon/';
 let pokemonTypesUrl = 'https://pokeapi.co/api/v2/type';
 let noImg = '../assets/images/no-img.png';
 
@@ -54,10 +53,6 @@ const store = createStore({
   },
 
   mutations: {
-    setPokemons(state, payload) {
-      state.pokemons = payload;
-    },
-
     setExtraPokemons(state, payload) {
       const pokemons = state.pokemons;
       const increasedPokemons = [...pokemons, ...payload];
@@ -93,29 +88,8 @@ const store = createStore({
   },
 
   actions: {
-    async fetchPokemons(context, payload = '') {
-      let currentUrl = payload !== '' ? payload : apiUrl;
-
-      const response = await fetch(currentUrl);
-      const pokemonsData = await response.json();
-
-      if (!response.ok) {
-        console.error('Error occurred');
-      } else {
-        const { next, previous, results } = pokemonsData;
-
-        const pokemons = results.map((pokemon) => {
-          return {
-            name: pokemon.name,
-            img: `${imageUrl}${getPokemonId(pokemon.url)}.png`,
-            id: getPokemonId(pokemon.url),
-          };
-        });
-
-        context.commit('setPokemons', pokemons);
-        context.commit('setNextPageUrl', next);
-        context.commit('setPreviousPageUrl', previous);
-      }
+    collectPokemons(context, pokemonsArray) {
+      context.commit('setExtraPokemons', pokemonsArray);
     },
 
     async fetchPokemonTypes(context) {
@@ -134,8 +108,8 @@ const store = createStore({
       }
     },
 
-    async fetchPokemonsByType(context, payload) {
-      const response = await fetch(payload);
+    async fetchPokemonsByType(context, url) {
+      const response = await fetch(url);
       const responseData = await response.json();
 
       if (!response.ok) {
@@ -158,8 +132,8 @@ const store = createStore({
       }
     },
 
-    async fetchNewPokemons(context, payload) {
-      const response = await fetch(payload);
+    async fetchNewPokemons(context, url) {
+      const response = await fetch(url);
       const pokemonsData = await response.json();
 
       if (!response.ok) {
