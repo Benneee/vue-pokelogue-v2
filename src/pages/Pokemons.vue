@@ -9,26 +9,8 @@
         :key="`pokemon-${index}`"
         :pokemon="pokemon"
       />
+      <Observer @intersect="intersected" />
     </div>
-
-    <!-- Use infinite-scroll to fetch more pokemons -->
-    <!-- Button isn't pushing back up after going to next page -->
-    <!-- <div class="footer" v-if="!isLoading && pokemons.length > 0">
-      <button
-        class="pg-btn"
-        v-if="hasPreviousPageUrl"
-        @click="getPokemons(previousPageUrl)"
-      >
-        Previous
-      </button>
-      <button
-        class="pg-btn"
-        v-if="hasNextPageUrl"
-        @click="getPokemons(nextPageUrl)"
-      >
-        Next
-      </button>
-    </div> -->
   </section>
 </template>
 
@@ -36,6 +18,8 @@
 import { mapActions, mapGetters } from 'vuex';
 import BaseSpinner from '@/base/BaseSpinner.vue';
 import Pokemon from '@/components/Pokemon.vue';
+import Observer from '@/components/Observer.vue';
+import { apiUrl, getPokemonId, imageUrl } from '../helpers';
 
 export default {
   name: 'Pokemons',
@@ -43,41 +27,43 @@ export default {
   components: {
     BaseSpinner,
     Pokemon,
+    Observer,
   },
 
   data() {
     return {
       isLoading: false,
+      offset: 0,
     };
   },
 
   computed: {
-    ...mapGetters(['pokemons', 'previousPageUrl', 'nextPageUrl']),
-
-    hasPreviousPageUrl() {
-      return this.previousPageUrl !== null;
-    },
-
-    hasNextPageUrl() {
-      return this.nextPageUrl !== null;
-    },
-  },
-
-  created() {
-    this.getPokemons();
+    ...mapGetters(['pokemons']),
   },
 
   methods: {
-    ...mapActions(['fetchPokemons', 'fetchNewPokemons']),
+    ...mapActions(['collectPokemons', 'fetchNewPokemons']),
 
-    async getPokemons(payload = '') {
+    async intersected() {
       this.isLoading = true;
+      const response = await fetch(`${apiUrl}?offset=${this.offset}&limit=20`);
+      const pokemonsData = await response.json();
+      const { results } = pokemonsData;
 
-      try {
-        await this.fetchPokemons(payload);
-      } catch (error) {
-        console.error('error: ', error);
-      }
+      const pokemons = results.map((pokemon) => {
+        return {
+          name: pokemon.name,
+          img: `${imageUrl}${getPokemonId(pokemon.url)}.png`,
+          id: getPokemonId(pokemon.url),
+        };
+      });
+
+      this.offset += 20;
+      await this.fetchNewPokemons(`${apiUrl}?offset=${this.offset}&limit=20`);
+
+      // Set first set of pokemons in state
+      this.collectPokemons(pokemons);
+
       this.isLoading = false;
     },
   },
