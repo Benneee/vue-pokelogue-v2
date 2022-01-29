@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 export default {
   name: 'PokemonDetail',
 
@@ -20,8 +20,16 @@ export default {
     },
   },
 
+  computed: {
+    ...mapGetters(['pokemon']),
+  },
+
   created() {
     this.getPokemonDetails(this.pokemonId);
+  },
+
+  mounted() {
+    console.log('pokemon details: ', this.pokemon);
   },
 
   methods: {
