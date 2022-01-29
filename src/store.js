@@ -1,5 +1,5 @@
 import { createStore } from 'vuex';
-import { getPokemonId, apiUrl } from './helpers';
+import { getPokemonId, apiUrl, buildUpPokemonDetails } from './helpers';
 
 const imageUrl =
   'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/';
@@ -49,7 +49,9 @@ const store = createStore({
       return state.favouritePokemons;
     },
 
-    // pokemon // Details
+    pokemon(state) {
+      return state.pokemon;
+    },
   },
 
   mutations: {
@@ -84,7 +86,9 @@ const store = createStore({
       state.favouritePokemons = payload;
     },
 
-    // setPokemon,
+    setPokemon(state, payload) {
+      state.pokemon = payload;
+    },
   },
 
   actions: {
@@ -188,7 +192,8 @@ const store = createStore({
       if (!response.ok) {
         console.error('Error occurred!');
       } else {
-        console.log('res: ', responseData);
+        const details = buildUpPokemonDetails(responseData);
+        context.commit('setPokemon', details);
       }
     },
   },
