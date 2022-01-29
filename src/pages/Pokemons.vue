@@ -59,10 +59,11 @@ export default {
       });
 
       this.offset += 20;
-      await this.fetchNewPokemons(`${apiUrl}?offset=${this.offset}&limit=20`);
 
       // Set first set of pokemons in state
       this.collectPokemons(pokemons);
+
+      await this.fetchNewPokemons(`${apiUrl}?offset=${this.offset}&limit=20`);
 
       this.isLoading = false;
     },
