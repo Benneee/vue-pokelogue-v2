@@ -12,13 +12,13 @@
 
       <div>
         <i
-          v-if="isFavoritePokemon(pokemon.id)"
+          v-if="isFavoritePokemon(pokemon.id) && showFavorite"
           @click="removeFromFavorites(pokemon)"
           class="mdi mdi-heart"
         ></i>
         <i
-          v-else
           @click="addToFavorites(pokemon)"
+          v-if="!isFavoritePokemon(pokemon.id) && showFavorite"
           class="mdi mdi-heart-outline"
         ></i>
       </div>
@@ -38,7 +38,13 @@ export default {
   props: {
     pokemon: {
       type: Object,
-      required: false,
+      required: true,
+    },
+
+    showFavorite: {
+      type: Boolean,
+      required: true,
+      default: true,
     },
   },
 

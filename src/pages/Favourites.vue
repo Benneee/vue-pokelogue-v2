@@ -8,6 +8,7 @@
         v-for="(pokemon, index) in favouritePokemons"
         :key="`pokemon-${index}`"
         :pokemon="pokemon"
+        :show-favorite="false"
       />
     </div>
     <div v-else>
