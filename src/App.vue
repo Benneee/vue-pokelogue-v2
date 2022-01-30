@@ -1,4 +1,5 @@
 <template>
+  <notifications />
   <TheHeader v-if="$route.path !== '/home'" />
   <router-view v-slot="slotProps">
     <transition name="route" mode="out-in">
