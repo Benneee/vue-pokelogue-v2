@@ -23,6 +23,7 @@
         v-for="pokemon in pokemonsFromType"
         :key="`type-${pokemon.id}`"
         :pokemon="pokemon"
+        :show-favorite="true"
       />
     </div>
   </section>

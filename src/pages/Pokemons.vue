@@ -8,6 +8,7 @@
         v-for="(pokemon, index) in pokemons"
         :key="`pokemon-${index}`"
         :pokemon="pokemon"
+        :show-favorite="true"
       />
       <Observer @intersect="intersected" />
     </div>
