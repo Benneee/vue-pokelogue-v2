@@ -118,10 +118,22 @@ export default {
   width: 100vw;
   max-width: 100%;
 
+  @include respond(tab-port) {
+    @include set-width(0rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 10px;
+    width: 100vw;
+    max-width: 100%;
+  }
+
   &-btn {
     font-size: 1.3rem;
     padding: 0.5rem 0.7rem;
-    border-radius: 6px;
+    border-radius: 20px;
     background: $red;
     color: $white;
     font-family: $primary-font;
@@ -132,6 +144,14 @@ export default {
     text-transform: capitalize;
     margin-right: 1rem;
     margin-top: 1rem;
+
+    @include respond(tab-port) {
+      padding: 0.5rem 0.7rem;
+      margin: 0.5rem;
+      border-radius: 20px;
+      width: 4.5rem;
+      font-size: 0.9rem;
+    }
   }
 }
 </style>

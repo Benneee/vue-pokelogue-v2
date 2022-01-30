@@ -6,7 +6,7 @@ export default {
   },
 
   methods: {
-    shortenName(pokemonName, limit = 9, ellipsis = '...') {
+    shortenName(pokemonName, limit = 10, ellipsis = '...') {
       if (pokemonName) {
         if (pokemonName.includes('-')) {
           const hyphenPosition = pokemonName.indexOf('-');
