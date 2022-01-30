@@ -69,10 +69,8 @@ export default {
   @include set-width(4rem);
 
   font-family: $primary-font;
-
-  margin-top: 1.5rem;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(1px, 1fr));
   grid-gap: 1.4rem;
   width: 100vw;
 
