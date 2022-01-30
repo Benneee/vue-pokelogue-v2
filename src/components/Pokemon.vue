@@ -4,15 +4,30 @@
     <div class="pokemon__card-img" @click="goToPokemonDetail(pokemon.id)">
       <img :src="pokemon.img" alt="" />
     </div>
-    <div class="pokemon__card-details">
-      <p class="id">#{{ pokemon.id }}</p>
+    <div class="pokemon__card-data">
+      <div class="pokemon__card-details">
+        <p class="id">#{{ pokemon.id }}</p>
+        <p class="name">{{ shortenName(pokemon.name) }}</p>
+      </div>
 
-      <p class="name">{{ shortenName(pokemon.name) }}</p>
+      <div>
+        <i
+          v-if="isFavoritePokemon(pokemon.id)"
+          @click="removeFromFavorites(pokemon)"
+          class="mdi mdi-heart"
+        ></i>
+        <i
+          v-else
+          @click="addToFavorites(pokemon)"
+          class="mdi mdi-heart-outline"
+        ></i>
+      </div>
     </div>
   </article>
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
 import ShortenName from '../mixins/ShortenName';
 
 export default {
@@ -27,9 +42,50 @@ export default {
     },
   },
 
+  computed: {
+    ...mapGetters(['favouritePokemons']),
+  },
+
+  created() {
+    this.getFavorites();
+  },
+
   methods: {
+    ...mapActions(['fetchFavorites', 'favoritePokemon']),
+
+    getFavorites() {
+      this.fetchFavorites();
+    },
+
     goToPokemonDetail(pokemonId) {
       this.$router.push({ name: 'pokemon-detail', params: { pokemonId } });
+    },
+
+    isFavoritePokemon(pokemonId) {
+      const faveIDs = this.favouritePokemons.map((pokemon) => pokemon.id);
+      return faveIDs.includes(pokemonId);
+    },
+
+    addToFavorites(pokemon) {
+      const faveIDs = this.favouritePokemons.map((poke) => poke.id);
+      if (faveIDs && faveIDs.includes(pokemon.id)) {
+        this.$notify({
+          title: 'Pokelogue',
+          text: `${pokemon.name} already in favorites!`,
+        });
+      } else {
+        this.favoritePokemon(pokemon);
+        this.$notify({
+          title: 'Pokelogue',
+          text: `${pokemon.name} added to favorites`,
+        });
+
+        this.getFavorites();
+      }
+    },
+
+    removeFromFavorites(pokemon) {
+      console.log('pokemon: ', pokemon);
     },
   },
 };
@@ -68,11 +124,25 @@ export default {
     }
   }
 
+  &-data {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+
+    .mdi {
+      cursor: pointer;
+      font-size: 1.3rem;
+      &-heart {
+        color: $red;
+      }
+    }
+  }
+
   &-details {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 1rem;
 
     .id {
       color: $muted;
@@ -81,7 +151,7 @@ export default {
     }
 
     .name {
-      font-size: 1.3rem;
+      font-size: 1rem;
       margin-top: 0.3rem;
       font-weight: bold;
       text-transform: capitalize;
@@ -89,12 +159,6 @@ export default {
       @include respond(tab-port) {
         font-size: 1.1rem;
       }
-    }
-
-    .properties {
-      font-size: 1rem;
-      color: $muted;
-      font-weight: 300;
     }
   }
 }
