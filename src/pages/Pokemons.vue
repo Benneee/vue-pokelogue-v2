@@ -3,7 +3,7 @@
     <div v-if="isLoading && pokemons.length === 0">
       <BaseSpinner />
     </div>
-    <div class="pokemons" id="pokemons-list">
+    <div class="pokemons">
       <Pokemon
         v-for="(pokemon, index) in pokemons"
         :key="`pokemon-${index}`"
@@ -83,33 +83,10 @@ export default {
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   grid-gap: 1.4rem;
   width: 100vw;
-  // max-width: 70%;
 
   @include respond(tab-port) {
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     padding: 1rem 1rem;
-  }
-}
-
-.footer {
-  text-align: center;
-  font-family: $primary-font;
-  margin-bottom: 1rem;
-
-  .pg-btn {
-    font-size: 1rem;
-    padding: 0.5rem 0.7rem;
-    border-radius: 6px;
-    background: $red;
-    color: $white;
-    border: none;
-    cursor: pointer;
-    width: 7rem;
-    text-align: center;
-
-    &:first-of-type {
-      margin-right: 1rem;
-    }
   }
 }
 </style>
