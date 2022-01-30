@@ -6,10 +6,22 @@ let apiUrl = 'https://pokeapi.co/api/v2/pokemon/';
 const imageUrl =
   'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/';
 
+function removeHyphen(word) {
+  return word.replace(/-/g, ' ');
+}
+
 function buildUpPokemonDetails(data) {
   if (data) {
-    const { name, base_experience, height, weight, types, abilities, order } =
-      data;
+    const {
+      name,
+      base_experience,
+      height,
+      weight,
+      types,
+      abilities,
+      order,
+      held_items,
+    } = data;
     const pokemonImg = data.sprites.front_default;
     let usefulStats = {};
     let baseStats = [...data['stats']];
@@ -46,8 +58,9 @@ function buildUpPokemonDetails(data) {
       types,
       abilities,
       order,
+      held_items,
     };
   }
 }
 
-export { getPokemonId, apiUrl, imageUrl, buildUpPokemonDetails };
+export { getPokemonId, apiUrl, imageUrl, buildUpPokemonDetails, removeHyphen };
