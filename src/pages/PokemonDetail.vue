@@ -2,10 +2,18 @@
   <section class="details">
     <BaseSpinner v-if="isLoading" />
 
-    <base-card>
+    <base-card v-else>
       <div class="header">
         <i class="mdi mdi-chevron-left" @click="goToPreviousPage"></i>
-        <button class="fave-btn" @click="addToFavorites">
+        <button
+          class="fave-btn remove"
+          @click="removeFromFavorites"
+          v-if="isFavoritePokemon(pokemonId)"
+        >
+          Remove from Favorites
+        </button>
+
+        <button class="fave-btn add" @click="addToFavorites" v-else>
           Add to Favorites
         </button>
       </div>
@@ -204,7 +212,12 @@ export default {
   },
 
   methods: {
-    ...mapActions(['fetchPokemonDetails', 'favoritePokemon', 'fetchFavorites']),
+    ...mapActions([
+      'fetchPokemonDetails',
+      'favoritePokemon',
+      'fetchFavorites',
+      'unFavoritePokemon',
+    ]),
 
     removeAnHyphen(word) {
       return removeHyphen(word);
@@ -230,6 +243,11 @@ export default {
         : this.$router.push('/pokemons');
     },
 
+    isFavoritePokemon(pokemonId) {
+      const faveIDs = this.favouritePokemons.map((pokemon) => pokemon.id);
+      return faveIDs.includes(Number(pokemonId));
+    },
+
     addToFavorites() {
       const faveIDs = this.favouritePokemons.map((pokemon) => pokemon.id);
       if (faveIDs && faveIDs.includes(this.pokemonForFavorite.id)) {
@@ -245,6 +263,16 @@ export default {
         });
         this.getFavorites();
       }
+    },
+
+    removeFromFavorites() {
+      this.unFavoritePokemon(Number(this.pokemonId));
+      this.$notify({
+        title: 'Pokelogue',
+        text: `${this.pokemonForFavorite.name} removed from favorites`,
+      });
+
+      this.getFavorites();
     },
   },
 };
@@ -272,15 +300,27 @@ export default {
       .fave-btn {
         width: 157px;
         height: 50px;
-        background: #3558cd;
-        box-shadow: 0px 5px 22px 4px rgba(0, 0, 0, 0.06),
-          0px 12px 17px 2px rgba(0, 0, 0, 0.07),
-          0px 7px 8px -4px rgba(0, 0, 0, 0.1);
         border-radius: 36px;
         border: none;
-        color: $white;
         cursor: pointer;
+        font-size: 0.8rem;
         transition: all 0.5s;
+
+        &.add {
+          background: #3558cd;
+          box-shadow: 0px 5px 22px 4px rgba(0, 0, 0, 0.06),
+            0px 12px 17px 2px rgba(0, 0, 0, 0.07),
+            0px 7px 8px -4px rgba(0, 0, 0, 0.1);
+          color: $white;
+        }
+
+        &.remove {
+          background: #d5deff;
+          box-shadow: 0px 5px 22px 4px rgba(0, 0, 0, 0.06),
+            0px 12px 17px 2px rgba(0, 0, 0, 0.07),
+            0px 7px 8px -4px rgba(0, 0, 0, 0.1);
+          color: $blue;
+        }
 
         &:hover {
           box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.26);

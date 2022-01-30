@@ -2,7 +2,7 @@
   <header class="nav__container">
     <div class="header">
       <div class="header__logo">
-        <router-link to="/">
+        <router-link to="/home">
           <img
             src="https://img.icons8.com/color/36/000000/pikachu-pokemon.png"
           />
