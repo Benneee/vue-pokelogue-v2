@@ -17,6 +17,7 @@ const store = createStore({
       nextPageUrl: null,
       previousPageUrl: null,
       selectedPokemonType: null,
+      pokemonForFavorite: {},
     };
   },
 
@@ -51,6 +52,10 @@ const store = createStore({
 
     pokemon(state) {
       return state.pokemon;
+    },
+
+    pokemonForFavorite(state) {
+      return state.pokemonForFavorite;
     },
   },
 
@@ -88,6 +93,10 @@ const store = createStore({
 
     setPokemon(state, payload) {
       state.pokemon = payload;
+    },
+
+    setPokemonForFavorite(state, payload) {
+      state.pokemonForFavorite = payload;
     },
   },
 
@@ -164,14 +173,21 @@ const store = createStore({
     },
 
     favoritePokemon(_, payload) {
+      let favesArray = [];
       const favouritePokemons = JSON.parse(
         localStorage.getItem('favouritePokemons'),
       );
       if (favouritePokemons) {
         const newFavourites = [payload, ...favouritePokemons];
         localStorage.removeItem('favouritePokemons');
-        localStorage.setItem(JSON.stringify(newFavourites));
+        localStorage.setItem(
+          'favouritePokemons',
+          JSON.stringify(newFavourites),
+        );
         console.log('favorites set!');
+      } else {
+        favesArray.push(payload);
+        localStorage.setItem('favouritePokemons', JSON.stringify(favesArray));
       }
     },
 
@@ -192,8 +208,15 @@ const store = createStore({
       if (!response.ok) {
         console.error('Error occurred!');
       } else {
+        const { name, id, sprites } = responseData;
+        const fullPokemonData = {
+          name,
+          img: sprites.front_default,
+          id,
+        };
         const details = buildUpPokemonDetails(responseData);
         context.commit('setPokemon', details);
+        context.commit('setPokemonForFavorite', fullPokemonData);
       }
     },
   },
