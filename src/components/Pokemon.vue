@@ -12,7 +12,7 @@
 
       <div>
         <i
-          v-if="isFavoritePokemon(pokemon.id) && showFavorite"
+          v-if="isFavoritePokemon(pokemon.id)"
           @click="removeFromFavorites(pokemon)"
           class="mdi mdi-heart"
         ></i>
