@@ -2,21 +2,16 @@
 
 ## RunDown
 
-```
-v2 for one of my favorite projects - pokelogue, prior versions for this exist in [angular]() and [vue.js]().
-This version employs some features from Vue3 as listed below.
-```
+v2 for one of my favorite projects - pokelogue, prior versions for this exist in [angular](https://github.com/Benneee/poke-logue) and [vue.js](https://github.com/Benneee/vue-pokelogue).
+This version is written with vue 3.
 
 ## Features and WhatNots
 
-```
 - State management with vuex
 - Teleport for Modal component
 - Infinite scroll with Intersection Observer API
 - Mixins
-e.t.c...
-
-```
+  e.t.c...
 
 ## Project setup
 
