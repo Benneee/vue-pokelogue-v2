@@ -179,12 +179,11 @@ const store = createStore({
       );
       if (favouritePokemons) {
         const newFavourites = [payload, ...favouritePokemons];
-        localStorage.removeItem('favouritePokemons');
-        localStorage.setItem(
-          'favouritePokemons',
-          JSON.stringify(newFavourites),
+        const noDuplicates = newFavourites.filter(
+          (v, i, a) => a.findIndex((pokemon) => pokemon.id === v.id) === i,
         );
-        console.log('favorites set!');
+        localStorage.removeItem('favouritePokemons');
+        localStorage.setItem('favouritePokemons', JSON.stringify(noDuplicates));
       } else {
         favesArray.push(payload);
         localStorage.setItem('favouritePokemons', JSON.stringify(favesArray));
