@@ -48,6 +48,11 @@ export default {
   justify-content: center;
   margin-bottom: 0.5rem;
 
+  @include respond(tab-port) {
+    display: block;
+    width: 100%;
+  }
+
   small {
     margin-top: 10px;
     font-family: $primary-font;
@@ -63,6 +68,10 @@ export default {
     border: none;
     border-bottom: 1px solid $blue;
     font-family: $primary-font;
+
+    @include respond(tab-port) {
+      width: 100%;
+    }
   }
 }
 </style>

@@ -335,6 +335,10 @@ export default {
       &__name {
         text-transform: capitalize;
         font-size: 2.5rem;
+
+        @include respond(tab-port) {
+          font-size: 1.8rem;
+        }
       }
 
       &__img-section {
@@ -350,6 +354,9 @@ export default {
 
       &__id {
         font-size: 2rem;
+        @include respond(tab-port) {
+          font-size: 1.5rem;
+        }
       }
     }
 
@@ -369,6 +376,10 @@ export default {
           font-weight: normal;
           font-size: 1.8rem;
           line-height: 21px;
+
+          @include respond(tab-port) {
+            font-size: 1.3rem;
+          }
         }
       }
     }
