@@ -23,7 +23,8 @@
         </li>
         <li class="header__menu-item" @click="dropdownOpen = false">
           <router-link to="/favourites"
-            >Favourites({{ totalFavorites }})
+            >Favourites
+            <span v-if="totalFavorites > 0"> ({{ totalFavorites }})</span>
           </router-link>
         </li>
       </ul>

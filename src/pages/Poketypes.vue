@@ -99,17 +99,7 @@ export default {
   @include set-container;
   @include set-width(4rem);
 
-  font-family: $primary-font;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  grid-gap: 1.4rem;
-  width: 100vw;
-
-  @include respond(tab-port) {
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    padding: 1rem 1rem;
-    width: unset;
-  }
+  @include grid-flex;
 }
 
 .type__btns {
