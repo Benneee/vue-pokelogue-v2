@@ -22,7 +22,9 @@
           <router-link to="/poketypes">Poketypes</router-link>
         </li>
         <li class="header__menu-item" @click="dropdownOpen = false">
-          <router-link to="/favourites">Favourites</router-link>
+          <router-link to="/favourites"
+            >Favourites({{ totalFavorites }})
+          </router-link>
         </li>
       </ul>
 
@@ -44,6 +46,8 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
+
 export default {
   name: 'TheHeader',
 
@@ -54,8 +58,26 @@ export default {
   },
 
   computed: {
+    ...mapGetters(['favouritePokemons']),
+
     dropdownIcon() {
       return this.dropdownOpen ? 'close' : 'menu';
+    },
+
+    totalFavorites() {
+      return this.favouritePokemons.length;
+    },
+  },
+
+  created() {
+    this.getFavorites();
+  },
+
+  methods: {
+    ...mapActions(['fetchFavorites']),
+
+    getFavorites() {
+      this.fetchFavorites();
     },
   },
 };
