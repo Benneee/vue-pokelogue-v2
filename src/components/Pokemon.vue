@@ -35,7 +35,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .pokemon__card {
   height: 180px;
   width: 160px;
@@ -81,12 +81,13 @@ export default {
     }
 
     .name {
-      font-size: 1.75rem;
+      font-size: 1.3rem;
+      margin-top: 0.3rem;
       font-weight: bold;
       text-transform: capitalize;
 
       @include respond(tab-port) {
-        font-size: 1.3rem;
+        font-size: 1.1rem;
       }
     }
 
