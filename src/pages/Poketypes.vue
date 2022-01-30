@@ -99,13 +99,17 @@ export default {
   @include set-container;
   @include set-width(4rem);
 
-  margin-top: 1rem;
+  font-family: $primary-font;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  grid-gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-gap: 1.4rem;
   width: 100vw;
-  width: 100vw;
-  max-width: 100%;
+
+  @include respond(tab-port) {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    padding: 1rem 1rem;
+    width: unset;
+  }
 }
 
 .type__btns {

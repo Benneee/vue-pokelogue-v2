@@ -161,6 +161,8 @@ export default {
   @include respond(tab-port) {
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     padding: 1rem 1rem;
+
+    width: unset;
   }
 }
 
