@@ -93,7 +93,6 @@ export default {};
 
   .card {
     width: 80vw;
-    height: 28vh;
 
     p {
       font-size: 0.75rem;

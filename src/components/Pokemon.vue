@@ -115,9 +115,14 @@ export default {
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2), 0 2px 2px rgba(0, 0, 0, 0.2);
   transition: 0.3s;
 
+  @include respond(phone) {
+    height: 174px;
+    width: 158px;
+  }
+
   @include respond(tab-port) {
     height: 165px;
-    width: 130px;
+    width: 132px;
   }
 
   &-img {
@@ -169,7 +174,7 @@ export default {
       text-transform: capitalize;
 
       @include respond(tab-port) {
-        font-size: 1.1rem;
+        font-size: 0.9rem;
       }
     }
   }
