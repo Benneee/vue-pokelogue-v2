@@ -195,15 +195,16 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['pokemon', 'pokemonForFavorite']),
+    ...mapGetters(['pokemon', 'favouritePokemons', 'pokemonForFavorite']),
   },
 
   created() {
     this.getPokemonDetails(this.pokemonId);
+    this.getFavorites();
   },
 
   methods: {
-    ...mapActions(['fetchPokemonDetails', 'favoritePokemon']),
+    ...mapActions(['fetchPokemonDetails', 'favoritePokemon', 'fetchFavorites']),
 
     removeAnHyphen(word) {
       return removeHyphen(word);
@@ -219,6 +220,10 @@ export default {
       this.isLoading = false;
     },
 
+    getFavorites() {
+      this.fetchFavorites();
+    },
+
     goToPreviousPage() {
       window.history.length > 1
         ? this.$router.go(-1)
@@ -226,7 +231,19 @@ export default {
     },
 
     addToFavorites() {
-      console.log(`${this.pokemonForFavorite.name} added to favorites`);
+      const faveIDs = this.favouritePokemons.map((pokemon) => pokemon.id);
+      if (faveIDs && faveIDs.includes(this.pokemonForFavorite.id)) {
+        this.$notify({
+          title: 'Pokelogue',
+          text: `${this.pokemonForFavorite.name} already in favorites!`,
+        });
+      } else {
+        this.favoritePokemon(this.pokemonForFavorite);
+        this.$notify({
+          title: 'Pokelogue',
+          text: `${this.pokemonForFavorite.name} added to favorites`,
+        });
+      }
     },
   },
 };

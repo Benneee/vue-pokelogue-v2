@@ -46,7 +46,7 @@ const store = createStore({
       return state.selectedPokemonType;
     },
 
-    getFavorites(state) {
+    favouritePokemons(state) {
       return state.favouritePokemons;
     },
 
@@ -196,9 +196,13 @@ const store = createStore({
         localStorage.getItem('favouritePokemons'),
       );
       if (favouritePokemons) {
-        context.commit('setFavorites', favouritePokemons);
+        const noDuplicates = favouritePokemons.filter(
+          (v, i, a) => a.findIndex((pokemon) => pokemon.id === v.id) === i,
+        );
+        context.commit('setFavorites', noDuplicates);
+      } else {
+        context.commit('setFavorites', []);
       }
-      context.commit('setFavorites', []);
     },
 
     async fetchPokemonDetails(context, payload) {
