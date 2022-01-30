@@ -8,15 +8,8 @@ const imageUrl =
 
 function buildUpPokemonDetails(data) {
   if (data) {
-    const { name, base_experience, height, weight, types, abilities } = data;
-    const pokemonData = {
-      abilities,
-      base_experience,
-      height,
-      name,
-      types,
-      weight,
-    };
+    const { name, base_experience, height, weight, types, abilities, order } =
+      data;
     const pokemonImg = data.sprites.front_default;
     let usefulStats = {};
     let baseStats = [...data['stats']];
@@ -45,8 +38,14 @@ function buildUpPokemonDetails(data) {
 
     return {
       usefulStats,
-      pokemonData,
       pokemonImg,
+      name,
+      base_experience,
+      height,
+      weight,
+      types,
+      abilities,
+      order,
     };
   }
 }
