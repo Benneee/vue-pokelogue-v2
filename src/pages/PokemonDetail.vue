@@ -243,6 +243,7 @@ export default {
           title: 'Pokelogue',
           text: `${this.pokemonForFavorite.name} added to favorites`,
         });
+        this.getFavorites();
       }
     },
   },
