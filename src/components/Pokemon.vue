@@ -57,7 +57,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['fetchFavorites', 'favoritePokemon']),
+    ...mapActions(['fetchFavorites', 'favoritePokemon', 'unFavoritePokemon']),
 
     getFavorites() {
       this.fetchFavorites();
@@ -91,7 +91,13 @@ export default {
     },
 
     removeFromFavorites(pokemon) {
-      console.log('pokemon: ', pokemon);
+      this.unFavoritePokemon(pokemon.id);
+      this.$notify({
+        title: 'Pokelogue',
+        text: `${pokemon.name} removed from favorites`,
+      });
+
+      this.getFavorites();
     },
   },
 };

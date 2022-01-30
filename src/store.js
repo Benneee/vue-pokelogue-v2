@@ -190,6 +190,24 @@ const store = createStore({
       }
     },
 
+    unFavoritePokemon(context, payload) {
+      const favouritePokemons = JSON.parse(
+        localStorage.getItem('favouritePokemons'),
+      );
+
+      if (favouritePokemons) {
+        const updatedFavorites = favouritePokemons.filter(
+          (pokemon) => pokemon.id !== payload,
+        );
+        localStorage.removeItem('favouritePokemons');
+        localStorage.setItem(
+          'favouritePokemons',
+          JSON.stringify(updatedFavorites),
+        );
+        context.commit('setFavorites', updatedFavorites);
+      }
+    },
+
     fetchFavorites(context) {
       const favouritePokemons = JSON.parse(
         localStorage.getItem('favouritePokemons'),
