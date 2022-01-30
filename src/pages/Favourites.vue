@@ -70,7 +70,7 @@ export default {
 
   font-family: $primary-font;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(1px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   grid-gap: 1.4rem;
   width: 100vw;
 
