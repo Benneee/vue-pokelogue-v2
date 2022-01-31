@@ -86,10 +86,17 @@ export default {
 
 <style scoped lang="scss">
 .nav__container {
-  @include set-container;
+  @include grid-flex;
+
   font-family: $primary-font;
   .header {
-    @include set-width(4rem);
+    max-width: 1440px;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
     @include respond(tab-port) {
       padding: 0 2rem;
     }
@@ -117,7 +124,7 @@ export default {
         box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
       }
       &-item {
-        margin-top: 0.3rem;
+        margin-top: 1.3rem;
         padding-top: 0.3rem;
         margin-right: 1rem;
         a {
@@ -128,6 +135,7 @@ export default {
           @include format-list;
           @include respond(tab-port) {
             margin-left: 0;
+            margin-bottom: 1.3rem;
           }
         }
       }
