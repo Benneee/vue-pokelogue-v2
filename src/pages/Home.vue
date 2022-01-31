@@ -42,6 +42,9 @@ export default {};
   width: 50vw;
   text-align: center;
   height: 20vh;
+  @include respond(tab-port) {
+    height: unset;
+  }
   padding: 1rem;
   box-shadow: 0 4px 8px 0 rgba(182, 11, 11, 0.2);
   transition: 0.3s;
