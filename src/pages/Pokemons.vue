@@ -149,9 +149,6 @@ export default {
 
 <style scoped lang="scss">
 .pokemons {
-  @include set-container;
-  @include set-width(4rem);
-
   @include grid-flex;
 }
 

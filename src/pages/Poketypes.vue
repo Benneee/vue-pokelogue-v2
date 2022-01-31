@@ -96,33 +96,20 @@ export default {
 
 <style scoped lang="scss">
 .pokemons {
-  @include set-container;
-  @include set-width(4rem);
-
   @include grid-flex;
 }
 
 .type__btns {
-  @include set-container;
-  @include set-width(4rem);
-
   display: flex;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
   width: 100vw;
+  padding: 1rem 3rem;
   max-width: 100%;
 
   @include respond(tab-port) {
-    @include set-width(0rem);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: row;
-    flex-wrap: wrap;
-    margin: 10px;
-    width: 100vw;
-    max-width: 100%;
+    padding: 1rem 0.5rem;
   }
 
   &-btn {
