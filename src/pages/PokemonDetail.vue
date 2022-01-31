@@ -281,6 +281,9 @@ export default {
 <style scoped lang="scss">
 .details {
   padding: 0.5rem 1rem;
+  @include respond(tab-port) {
+    padding: 0;
+  }
   font-family: $primary-font;
 
   .card {
