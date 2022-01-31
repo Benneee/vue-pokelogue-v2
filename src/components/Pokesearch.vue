@@ -35,7 +35,8 @@ export default {
 
     sendPokemonData() {
       if (!this.validate()) {
-        this.$emit('searchEntry', this.pokemon);
+        const lowerCasePokemon = this.pokemon.toLowerCase();
+        this.$emit('searchEntry', lowerCasePokemon);
       }
     },
   },
