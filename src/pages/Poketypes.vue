@@ -105,8 +105,8 @@ export default {
   justify-content: center;
   flex-wrap: wrap;
   width: 100vw;
-  padding: 1rem 3rem;
-  max-width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
 
   @include respond(tab-port) {
     padding: 1rem 0.5rem;

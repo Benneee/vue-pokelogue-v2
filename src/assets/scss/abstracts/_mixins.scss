@@ -14,11 +14,13 @@
   padding: 1rem 3rem;
   width: 100%;
   align-items: center;
-  margin-top: 1.5rem;
+  margin: 1.5rem auto;
+  max-width: 1200px;
 
   @include respond(tab-port) {
     padding: 1rem 0.8rem;
     justify-content: center;
+    gap: 0.9rem;
   }
 }
 
