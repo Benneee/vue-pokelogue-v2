@@ -33,17 +33,6 @@
   list-style-type: none;
 }
 
-// Media Query Manager
-/*
-max-width MQs
-0 - 600px      :  Phone
-600px - 900px   : Tablet portrait
-900px - 1200px    : Tablet landscape
-1200 - 1800px  : Normal styles
-min-width MQs
-1800 ++          : Big Desktop
-*/
-
 @mixin respond-phone {
   @media (max-width: 600px) {
     @content;
